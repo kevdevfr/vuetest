@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/fontello.css"> <!-- Pour gérer les icônes -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css"> <!-- less/main.less -> css/main.css -->
+</head>
+
+<body>
+
+  <div class="tooltip" id="tooltip" v-bind:class="{ active: isActive }">
+    <button class="button cog icon-cog" @click="toggle"></button>
+    <div class="form-container">
+      <div class="form">
+        <div class="form-title">
+          <span>{{title}}</span>
+        </div>
+        <field label="Duration" :value=30 :digits=2></field>
+        <field label="Min. votes to pass" :value=1000 :digits=4></field>
+        <field label="Votes per user" :value=30 :digits=2></field>
+        <!-- un composant field, surtout pour pouvoir gérer l'espace de 1 000, si c'est important -->
+      </div>
+    </div>
+  </div>
+  <script>
+
+  /* déclaration du composant field pour les champs du tooltip/dropdown */
+  var field = Vue.component('field', {
+    template: `
+      <div class="form-field">
+        <input type="text"  v-model="this.formatedValue" :data-digits="this.digits">
+        <label>{{this.label}}</label>
+      </div>
+    `, /* Le label est après l'input pour pouvoir gérer son highlighting directement en css */
+    props: {
+      label: {
+        type: String,
+        default: ''
+      },
+      value: {
+        type: Number,
+        default: 1
+      },
+      digits: {
+        type: Number,
+        default: 1
+      }
+    },
+    data() {
+      return {
+       formatedValue: this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") /* 1000 -> 1 000 */
+      }
+    }
+
+  });
+
+  /* instance de Vue sur l'élément tooltip, peut-être que app serait plus correct */
+  var tooltip =  new Vue({
+    el: '#tooltip',
+    data: {
+      title: 'Manage Rules',
+      isActive: false
+  },
+  methods: {
+    toggle () {
+      this.isActive = !this.isActive
+    }
+  }
+  });
+  </script>
+
+</body>
+</html>
