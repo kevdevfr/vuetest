@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/fontello.css"> <!-- Pour gérer les icônes -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css"> <!-- less/main.less -> css/main.css -->
+</head>
+<body>
+
+  <div class="tooltip" id="tooltip" v-bind:class="{ active: isActive, hovering: isHovering }"  v-click-outside="hide"
+  @mouseover="isHovering = true"
+ @mouseout="isHovering = false"
+ :class="">
+    <button class="tooltip__button icon--cog" @click="toggle"></button>
+    <div class="tooltip__form">
+      <div class="form">
+        <div class="form__title">
+          <span>{{title}}</span>
+        </div>
+        <field label="Duration" :value=30></field>
+        <field label="Min. votes to pass" :value=1000></field>
+        <field label="Votes per user" :value=30></field>
+        <!-- un composant field, surtout pour pouvoir gérer l'espace de 1 000, si c'est important -->
+      </div>
+    </div>
+  </div>
+
+    <script src="./js/bundle.js" type="text/javascript"></script>
+</body>
+</html>

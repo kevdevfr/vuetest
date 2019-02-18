@@ -4,12 +4,15 @@ body {
   align-items: center;
   height: 90vh;
 }
+/* Les tailles sont relatives à la taille de caractère de leur parent, ici 16px est la seule taille définie, exceptées les borders et shadows */
 .tooltip {
   font-size: 16px;
   font-family: 'Lato';
   padding-bottom: 12em;
+  /* padding juste pour la démo */
 }
-.tooltip .cog {
+.tooltip .tooltip__button {
+  /* bouton */
   outline: none;
   margin: 0;
   padding: 0;
@@ -19,37 +22,40 @@ body {
   background-color: transparent;
   cursor: pointer;
   border-radius: 0.125em;
+  transition: 0.15s background-color ease, 0.15s color ease;
 }
-.tooltip .cog::before {
+.tooltip .tooltip__button::before {
   color: #b2bdc6;
   font-size: 1.5em;
   margin: 0;
 }
-.tooltip .cog:hover,
-.tooltip .cog:focus {
+.tooltip .tooltip__button:hover,
+.tooltip .tooltip__button:focus {
   background-color: #f3f4f6;
 }
-.tooltip.active .cog {
+.tooltip.active .tooltip__button {
   background-color: #eaedf3;
 }
-.tooltip.active .cog::before {
+.tooltip.active .tooltip__button::before {
   color: #8495a3;
 }
-.tooltip.active .form-container {
+.tooltip.active .tooltip__form {
+  /* le formulaire est caché en utilisant l'opacité et les événements */
   opacity: 1;
   pointer-events: auto;
 }
-.tooltip .form-container {
+.tooltip .tooltip__form {
+  /* formulaire */
   position: relative;
   opacity: 0;
   pointer-events: none;
   transition: .3s opacity ease;
 }
-.tooltip .form-container .form {
+.tooltip .tooltip__form .form {
   padding: .25em 0 .25em;
   position: absolute;
   left: -5.75em;
-  border-radius: 3px;
+  border-radius: 0.1875em;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05), 0 2px 12px 0 rgba(132, 149, 163, 0.32);
   background-color: #ffffff;
   width: 13.5em;
@@ -57,22 +63,23 @@ body {
   margin-top: .75em;
   border: 1px solid #c8d2dd;
 }
-.tooltip .form-container .form::before {
+.tooltip .tooltip__form .form::before {
+  /* Triangle du tooltip */
   content: '';
   display: block;
   position: absolute;
-  top: -0.4em;
-  left: 0;
+  top: -0.425em;
+  left: -0.15em;
   right: 0;
   margin: auto;
-  width: .8em;
+  width: .85em;
   height: .8em;
   background: #fff;
   border: 0;
-  box-shadow: -1px -1px 3px 0 rgba(132, 149, 163, 0.25);
+  box-shadow: -1px -1px 3px 0 rgba(132, 149, 163, 0.25), inset 1px 1px 0px 0 #c8d2dd;
   transform: rotate(35deg) skewX(-20deg);
 }
-.tooltip .form-container .form .form-title {
+.tooltip .tooltip__form .form .form__title {
   display: flex;
   align-items: center;
   padding: 0 1em;
@@ -82,19 +89,20 @@ body {
   line-height: 2em;
   padding-bottom: .25em;
 }
-.tooltip .form-container .form .form-title span {
+.tooltip .tooltip__form .form .form__title span {
   color: #3c4a5a;
   font-weight: bold;
   font-size: 0.825em;
   line-height: 1.25em;
 }
-.tooltip .form-container .form .form-field {
+.tooltip .tooltip__form .form .form__field {
+  /* champ du formulaire */
   padding: 0 1em;
-  min-height: 3.5em;
+  min-height: 3.0em;
   line-height: 0.75em;
   margin: .25em 0;
 }
-.tooltip .form-container .form .form-field label {
+.tooltip .tooltip__form .form .form__field label {
   display: block;
   font-size: 0.6875em;
   letter-spacing: 0.055em;
@@ -105,35 +113,23 @@ body {
   margin-top: -4.25em;
   transition: .3s color ease;
 }
-.tooltip .form-container .form .form-field input[type=number]::-webkit-inner-spin-button,
-.tooltip .form-container .form .form-field input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.tooltip .form-container .form .form-field input {
-  margin-top: 2em;
+.tooltip .tooltip__form .form .form__field input {
+  margin-top: 1.625em;
   outline: none;
   border: 0;
   font-size: 0.825em;
-  line-height: 2.375em;
-  height: 2.375em;
+  line-height: 2.45em;
+  height: 2.45em;
   background: transparent;
   transition: 0.15s box-shadow ease;
-  width: 1.6em;
-  max-width: 100%;
   color: #3c4a5a;
+  caret-color: #2db9f0;
 }
-.tooltip .form-container .form .form-field input[data-digits="3"] {
-  width: 2.4em;
-}
-.tooltip .form-container .form .form-field input[data-digits="4"] {
-  width: 3.2em;
-}
-.tooltip .form-container .form .form-field input:focus,
-.tooltip .form-container .form .form-field input:active {
+.tooltip .tooltip__form .form .form__field input:focus,
+.tooltip .tooltip__form .form .form__field input:active {
   box-shadow: inset 0 -2px 0 0 #2db9f0;
 }
-.tooltip .form-container .form .form-field input:focus + label,
-.tooltip .form-container .form .form-field input:active + label {
+.tooltip .tooltip__form .form .form__field input:focus + label,
+.tooltip .tooltip__form .form .form__field input:active + label {
   color: #2db9f0;
 }
